@@ -1,0 +1,12 @@
+[package]
+name = "chapterize"
+version = "0.1.0"
+edition = "2021"
+description = "Parse EDLs to generate YouTube timestamps."
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+edl = { path = "../edl" }
+clap = { verion = "4", features = ["derive"] }
+chrono = "0.4"
