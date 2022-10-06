@@ -2,6 +2,7 @@ use chrono::Duration;
 use clap::{command, Parser};
 use edl::entry::Entry;
 use std::fmt::Write as FmtWrite;
+use std::io;
 use std::{
     error::Error,
     fs,
@@ -13,10 +14,12 @@ use std::{
 #[command(author, version, about, long_about = None)]
 struct Args {
     /// The input EDL file.
+    /// When not specified, input will be read from STDIN.
     #[arg()]
-    input: String,
+    input: Option<String>,
 
-    /// The output TXT file (defaults to input file name + .txt).
+    /// The output TXT file.
+    /// When not specified, output will be printed to STDOUT.
     #[arg(short, long)]
     output: Option<String>,
 
@@ -32,7 +35,11 @@ struct Args {
 fn main() -> Result<(), Box<dyn Error>> {
     let args = Args::parse();
 
-    let mut f = fs::File::open(Path::new(&args.input))?;
+    let mut f: Box<dyn Read> = if let Some(input_file) = args.input {
+        Box::new(fs::File::open(Path::new(&input_file))?)
+    } else {
+        Box::new(io::stdin())
+    };
 
     let mut data = String::new();
     f.read_to_string(&mut data)?;
@@ -53,9 +60,18 @@ fn main() -> Result<(), Box<dyn Error>> {
         })
         .collect();
 
-    let output_file = args.output.unwrap_or_else(|| format!("{}.txt", args.input));
-    let mut out = fs::File::create(Path::new(&output_file))?;
+    if let Some(output_file) = args.output {
+        let mut out = fs::File::create(Path::new(&output_file))?;
+        wtite_entries(&entries, &mut out)?;
+        println!("{output_file} has been generated.");
+    } else {
+        wtite_entries(&entries, &mut io::stdout())?;
+    }
 
+    Ok(())
+}
+
+fn wtite_entries(entries: &Vec<&Entry>, w: &mut impl Write) -> io::Result<()> {
     let with_hours =
         entries.last().is_some() && entries.last().unwrap().timestamp >= Duration::hours(1);
 
@@ -63,10 +79,8 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     for e in entries {
         let name = e.name.as_ref().unwrap_or(&def_name);
-        writeln!(out, "{} {}", to_timestamp(e.timestamp, with_hours), name)?;
+        writeln!(w, "{} {}", to_timestamp(e.timestamp, with_hours), name)?;
     }
-
-    println!("{output_file} has been generated.");
 
     Ok(())
 }
