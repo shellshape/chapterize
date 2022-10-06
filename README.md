@@ -1,4 +1,4 @@
-# chapterize
+# chapterize  [![release](https://github.com/zekroTJA/chapterize/actions/workflows/cd.yml/badge.svg)](https://github.com/zekroTJA/chapterize/actions/workflows/cd.yml) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/zekroTJA/chapterize)](https://github.com/zekroTJA/chapterize/releases) [![Crates.io](https://img.shields.io/crates/v/edl)](https://crates.io/edl) [![docs.rs](https://img.shields.io/docsrs/edl)](https://docs.rs/edl/latest/edl)
 
 A CLI tool to convert EDL marker files (for example from DaVinci Resolve) to YouTube video timestamps.
 
@@ -8,17 +8,22 @@ A CLI tool to convert EDL marker files (for example from DaVinci Resolve) to You
 ❯ chapterize --help
 Parse EDLs to generate YouTube timestamps.
 
-Usage: chapterize [OPTIONS] <INPUT>
+Usage: chapterize [OPTIONS] [INPUT]
 
 Arguments:
-  <INPUT>  The input EDL file
+  [INPUT]  The input EDL file. When not specified, input will be read from STDIN
 
 Options:
-  -o, --output <OUTPUT>              The output TXT file (defaults to input file name + .txt)
-  -f, --frame-rate <FRAME_RATE>      The frame rate (FPS) of the timeline [default: 60]
-  -c, --color-filter <COLOR_FILTER>  Color filter
-  -h, --help                         Print help information
-  -V, --version                      Print version information
+  -o, --output <OUTPUT>
+          The output TXT file. When not specified, output will be printed to STDOUT
+  -f, --frame-rate <FRAME_RATE>
+          The frame rate (FPS) of the timeline [default: 60]
+  -c, --color-filter <COLOR_FILTER>
+          Color filter
+  -h, --help
+          Print help information
+  -V, --version
+          Print version information
 ```
 
 You can export your timeline markers in DaVinci Resolve by right-clicking your timeline, navigating to `Timelines` → `Export` → `Timeline Markers to EDL...`.
