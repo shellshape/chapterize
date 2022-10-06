@@ -91,11 +91,6 @@ fn parse_duration(v: &str, frame_rate: f32) -> Result<Duration, Error> {
     parts.resize(4, 0f32);
     parts.reverse();
 
-    println!(
-        "{} => {}",
-        parts[0],
-        (parts[0] * 1000f32 / frame_rate) as i64
-    );
     let d = Duration::microseconds((parts[0] * 1000000f32 / frame_rate).floor() as i64)
         + Duration::seconds(parts[1] as i64)
         + Duration::minutes(parts[2] as i64)

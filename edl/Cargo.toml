@@ -1,10 +1,10 @@
 [package]
 name = "edl"
-version = "1.1.0"
+version = "1.1.2"
 edition = "2021"
 description = "Parse EDL (edit decision list) files."
 license = "MIT"
-docs = "https://docs.rs/edl"
+documentation = "https://docs.rs/edl"
 readme = "README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
