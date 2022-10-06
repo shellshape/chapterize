@@ -1,6 +1,6 @@
 [package]
 name = "chapterize"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
 description = "Parse EDLs to generate YouTube timestamps."
 
@@ -8,5 +8,5 @@ description = "Parse EDLs to generate YouTube timestamps."
 
 [dependencies]
 edl = { path = "../edl" }
-clap = { verion = "4", features = ["derive"] }
+clap = { version = "4", features = ["derive"] }
 chrono = "0.4"
