@@ -5,7 +5,7 @@ use chrono::Duration;
 pub struct Entry {
     pub index: usize,
     pub timestamp: Duration,
-    pub duration: Option<Duration>,
+    pub duration: Duration,
     pub color: Option<String>,
     pub name: Option<String>,
     pub description: Option<String>,

@@ -22,7 +22,7 @@ struct Args {
 
     /// The frame rate (FPS) of the timeline.
     #[arg(short, long, default_value = "60")]
-    frame_rate: u32,
+    frame_rate: f32,
 
     /// Color filter.
     #[arg(short, long)]
