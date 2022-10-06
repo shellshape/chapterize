@@ -1,7 +1,17 @@
+use crate::{entry::Entry, errors::Error};
 use chrono::Duration;
 
-use crate::{entry::Entry, errors::Error};
-
+/// Parses the passed EDL encoded content into a vector
+/// of entries.
+///
+/// ```rust
+/// let mut f = fs::File::open(Path::new("timeline.edl")).unwrap();
+///
+/// let mut data = String::new();
+/// f.read_to_string(&mut data).unwrap();
+///
+/// let mut entries = edl::parser::parse(&data, 60)?;
+/// ```
 pub fn parse(data: &str, frame_rate: u32) -> Result<Vec<Entry>, Error> {
     let lines: Vec<&str> = data.split("\r\n\r\n").collect();
     if lines.len() < 2 {

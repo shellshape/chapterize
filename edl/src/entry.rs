@@ -1,5 +1,6 @@
 use chrono::Duration;
 
+/// An EDL entry.
 #[derive(Debug)]
 pub struct Entry {
     pub index: usize,
